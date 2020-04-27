@@ -66,56 +66,56 @@ message.addEventListener('click', function(){
     this.style.display ='none';
 })
 
-// REQUËTE vers l'API cameras avec fetch
+
+// REQUÊTE vers l'API cameras avec fetch
 fetch('http://localhost:3000/api/cameras')
   .then(response => {
-    // si la requête est un succès
-    if(response.ok){
+    
         // on parse les données de la requête en utilisant json()
         return response.json();
-    }
-    // sinon on lance une erreur
-    throw new Error('Request failed!');
     
   })
   // on utilise les données pour les afficher
   .then(data => {
+
         // récupérer le paramètre id dans l'url pour pouvoir l'utiliser
         const urlProduit = window.location.href;
         const url = new URL(urlProduit);
         const idProduit = url.searchParams.get('id'); 
-        
-        
 
-        // Au clic sur le bouton ajouter au panier, on récupère l'id de la camera dans un objet mis dans le localstorage
-
+        // MISE EN PLACE DU LOCALSTORAGE
+        // on remplit le local storage avec un objet itemsCart qu'on initialise
+        
         // pour éviter que le localStorage se vide à chaque rechargement de page, on vérifie s'il est paramétré
         // si oui on récupère les données du storage avec getItem sinon l'objet reste vide
         let itemsCart = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : {};
         
-        //localStorage.setItem('items', JSON.stringify(itemsCart));
-        JSON.parse(localStorage.getItem('items'));
-        
-
-
+        // au clic sur le bouton Ajouter au panier, on ajoute une paire clé, valeur à l'objet vide itemsCart
+        // où la clé stocke l'id de l'appareil ajouté et la valeur stocke la quantité incrémentée à chaque clic
         btnPanier.addEventListener('click', function(){
-            // désactiver le bouton une fois cliqué pour ne pas pas permettre d'ajouter le même appareil 2 fois
+            // désactiver le bouton une fois cliqué pour ne pas pas permettre d'ajouter le même appareil 2 fois quand on reste sur la page sans la recharger
             this.disabled = true;
             // changer le style du bouton désactivé
             this.style.backgroundColor ="#e2e3e4";
             this.style.cursor = 'auto';
             
-            // ajouter l'id à l'array
+            
             if(itemsCart[idProduit] === undefined){
+
                 itemsCart[idProduit] = 1;
+
             }else{
+
                 itemsCart[idProduit] += 1; 
                 
             }
             console.log(itemsCart);
             localStorage.setItem('items', JSON.stringify(itemsCart));
+            
             // afficher le message de confirmation
             message.style.display ='block';
+
+            
             
            
      
@@ -137,7 +137,10 @@ fetch('http://localhost:3000/api/cameras')
 
         });// fin de la boucle dans cameras
 
-    });// Fin de la requête
+    })
+    .catch( error => {
+        console.log(error);
+      });// Fin de la requête
     
 
 // FONCTION renderDetails()

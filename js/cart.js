@@ -2,10 +2,10 @@
 fetch('http://localhost:3000/api/cameras')
   .then(response => {
     // si la requête est un succès
-    if(response.ok){
+   
         // on parse les données de la requête en utilisant json()
         return response.json();
-    }
+    
     // sinon on lance une erreur
     throw new Error('Request failed!');
     
@@ -47,7 +47,11 @@ fetch('http://localhost:3000/api/cameras')
             table[0].appendChild(rangeeTotal);
             rangeeTotal.innerHTML =`<td class="hidden"></td><td class="hidden"></td><td class="panierPrix">Total</td><td class="panierPrix">${sumTotal}€</td>`;
    
-});// Fin de la requête
+})
+.catch( error => {
+    console.log(error);
+  });
+  // Fin de la requête
 
 
 const root = document.getElementById('root-panier');
@@ -110,9 +114,6 @@ const rankMaker = (imgSrc, nomPdt, qtPdt, price, array) => {
     
     // on affiche le sous-total dans la cellule
     tdTotal.innerHTML = prixPdts;
-    
-
-
 }
 
 

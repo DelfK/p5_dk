@@ -2,33 +2,33 @@
 fetch('http://localhost:3000/api/cameras')
   .then(response => {
 
-    
         // on parse les données de la requête en utilisant json()
         return response.json();
-    
-    
-    
+      
   })
   // on utilise les données pour les afficher
   .then(data => {
     data.forEach( camera => {
+
       // appeler la fonction qui permet de créer un card et définie plus bas
        renderCard(camera);
+
     })
   }
-).catch( error => {
+)
+.catch( error => {
+
   console.log(error);
+
 });
 
 
 
-// FONCTION renderCard() 
-// crée un card pour chaque camera
-// chaque card contient une image, le nom de la camera, sa description son prix et un lien vers ses détails
+// La fonction renderCard() crée un card pour chaque appareil
+// chaque card contient une image, le nom de l'appareil, sa description son prix et un lien vers ses détails
 const renderCard = camera => {
-      // LISTE DE CAMERAS
     
-      // récupérer la div qui va afficher les cameras
+      // récupérer la div qui va afficher les appareils
       const root = document.getElementById('root_list');
 
       // créer la div card et lui attribuer une class card
