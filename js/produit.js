@@ -1,4 +1,4 @@
-// ON CREE LA STRUCTURE HTML qui va contenir les données de la camera
+// ON CREE LA STRUCTURE HTML qui va contenir les données de l'appareil sélectionné
 // récupérer la div qui va afficher le produit
 const rootProduit = document.getElementById('root-produit');
 
@@ -27,48 +27,63 @@ const artPerso = document.createElement('h3');
 artContent.appendChild(artPerso);
 artPerso.textContent = "Choix de l'objectif";
 
-// créer la div contenant le choix des d'objectifs
+// créer le form contenant le choix des d'objectifs
 const selectObj = document.createElement('form');
 artContent.appendChild(selectObj);
 
-// créer la div contenent le prix et l'ajout au panier
+// créer la div card__details contenant le bouton et le prix
 const details = document.createElement('div');
 details.setAttribute('class','card__details');
 artContent.appendChild(details);
 
-// créer le bouton et prix
+// créer les 2 sous-div de card__details
+// 1 > voir-panier
 const lienPanier = document.createElement('div');
 lienPanier.setAttribute('class','voir-panier');
+details.appendChild(lienPanier);
 
+// 2 > prix-produit
 const prixProduit = document.createElement('div');
 prixProduit.setAttribute('class','prix-produit');
-
-details.appendChild(lienPanier);
 details.appendChild(prixProduit);
 
-// créer le bouton et le rattacher
-const btnPanier = document.createElement('button');
-btnPanier.setAttribute('class', 'button');
-btnPanier.innerHTML = 'Ajouter au panier';
+    // créer le contenant du prix et le rattacher
+    const prix = document.createElement('p');
+    prixProduit.appendChild(prix);
 
-lienPanier.appendChild(btnPanier);
 
-// créer le contenant du prix et le rattacher
-const prix = document.createElement('p');
+// créer le sous-bloc contenu dans voir-panier 
+const blocValidation = document.createElement('div');
+blocValidation.setAttribute('class', 'bloc-validation');
+lienPanier.appendChild(blocValidation);
 
-prixProduit.appendChild(prix);
+    // créer le bouton Ajouter au panier et le rattacher
+    const btnPanier = document.createElement('button');
+    btnPanier.setAttribute('class', 'button');
+    btnPanier.innerHTML = 'Ajouter au panier';
+    blocValidation.appendChild(btnPanier);
 
-const message = document.getElementById('message');
-artContent.appendChild(message);
+    // créer le message vert qui appara^tra au clic sur le bouton Ajouter au panier
+    const animBtn = document.createElement('div');
+    blocValidation.appendChild(animBtn);
+    animBtn.setAttribute('class','btn-anim');
 
-// récupérer le message de confirmation de panier créé en dur et le masquer
-message.addEventListener('click', function(){
-    this.style.display ='none';
-})
+    animBtn.innerHTML = "Voir le <a href='panier.html'>panier</a><span id='fermer'>x</span>";
 
+    const fermer = document.getElementById('fermer');
+    fermer.addEventListener('click', function(){
+        animBtn.style.transform = "translateY(0)";
+    });
+
+
+// on récupère le paramètre id dans l'url pour pouvoir l'utiliser dans la requête
+const urlProduit = window.location.href;
+const url = new URL(urlProduit);
+const idProduit = url.searchParams.get('id');
+ 
 
 // REQUÊTE vers l'API cameras avec fetch
-fetch('http://localhost:3000/api/cameras')
+fetch(`http://localhost:3000/api/cameras/${idProduit}`)
   .then(response => {
     
         // on parse les données de la requête en utilisant json()
@@ -77,12 +92,7 @@ fetch('http://localhost:3000/api/cameras')
   })
   // on utilise les données pour les afficher
   .then(data => {
-
-        // récupérer le paramètre id dans l'url pour pouvoir l'utiliser
-        const urlProduit = window.location.href;
-        const url = new URL(urlProduit);
-        const idProduit = url.searchParams.get('id'); 
-
+ 
         // MISE EN PLACE DU LOCALSTORAGE
         // on remplit le local storage avec un objet itemsCart qu'on initialise
         
@@ -93,13 +103,11 @@ fetch('http://localhost:3000/api/cameras')
         // au clic sur le bouton Ajouter au panier, on ajoute une paire clé, valeur à l'objet vide itemsCart
         // où la clé stocke l'id de l'appareil ajouté et la valeur stocke la quantité incrémentée à chaque clic
         btnPanier.addEventListener('click', function(){
-            // désactiver le bouton une fois cliqué pour ne pas pas permettre d'ajouter le même appareil 2 fois quand on reste sur la page sans la recharger
-            this.disabled = true;
-            // changer le style du bouton désactivé
-            this.style.backgroundColor ="#e2e3e4";
-            this.style.cursor = 'auto';
             
+            // on affiche le message de validation d'ajout au panier
+            animBtn.style.transform = "translateY(-100%)";
             
+            // on incrémente la quantité par id - on vérifie avant que l'appareil n'a pas été ajouté une première fois
             if(itemsCart[idProduit] === undefined){
 
                 itemsCart[idProduit] = 1;
@@ -111,40 +119,21 @@ fetch('http://localhost:3000/api/cameras')
             }
             console.log(itemsCart);
             localStorage.setItem('items', JSON.stringify(itemsCart));
-            
-            // afficher le message de confirmation
-            message.style.display ='block';
-
-            
-            
-           
-     
         });
+        // fin de l'event sur le bouton
         
-       
-        
-
-        
-       
-
-        //on récupère les informations de la camera dont l'id est le même que celui en paramètre de l'url
-        data.forEach(camera => {
-            if (camera._id == idProduit){
-                // on affiche les données de la camera en appelant renderDetails définie plus bas
-                renderDetails(camera);
-    
-            };// fin de la condition pour afficher les informations du produit sélectionné
-
-        });// fin de la boucle dans cameras
+            // on affiche les données sur l'appareil en appelant renderDetails définie plus bas
+                renderDetails(data);
 
     })
     .catch( error => {
-        console.log(error);
-      });// Fin de la requête
+    console.log(error);
+    });
+// FIN DE LA REQUÊTE
     
 
 // FONCTION renderDetails()
-// affiche l'image, le nom de la caméra , ses options de personnalisation (choix de l'objectif)
+// affiche l'image, le nom de l'appareil , ses options de personnalisation (choix de l'objectif)
 // son prix et un lien pour l'ajouter au panier
 const renderDetails = camera =>{
     const urlImage = camera.imageUrl;
@@ -183,13 +172,10 @@ const renderDetails = camera =>{
         radio.setAttribute('name', 'objectif');
     }); // fin de la boucle dans les objectifs
 
-    // afficherle prix 
+    // afficher le prix 
     prix.textContent = camera.price/100 + '€';
-
-    
-
-
-}
+} 
+// FIN DE LA FONCTION renderDetails
   
 
 

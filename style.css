@@ -18,12 +18,15 @@ body {
     margin: 140px auto;
 }
 
-.small_container{
-    max-width: 960px;
+.small-container{
+    max-width: 960;
     margin: 0 auto;
 }
 
-
+img {  
+    max-width: 100%;
+    margin: auto;  
+}
 
 /* textes */
 
@@ -41,8 +44,7 @@ header{
     display: flex;
     justify-content: space-between;
     background-color: #F5E8F1;
-    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;  
+    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.1);   
 }
 
 .header__logo{
@@ -98,14 +100,9 @@ footer p{
     flex-wrap: wrap ;
     flex-direction : row;
 }
-#root-produit{
+#root-produit, #root-panier{
     padding: 2rem 3rem;
     min-height: 100vh;
-}
-
-#root-panier{
-    padding: 2rem 3rem;
-    
 }
 
 .card{
@@ -137,7 +134,7 @@ footer p{
 }
 
 .article__img {
-    min-height: 400px;
+    height: 400px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -181,74 +178,56 @@ button{
 .button {
     color: #fff;
     background-color: #9E53FA;
-    border-radius: 2rem;
-    padding: 14px 14px;
+    border-radius: 1.2rem;
+    padding: 10px 14px;
     font-size: 1rem;
     font-weight: 800;
     text-align: center;
-    width: 100%;
-    border: 2px solid #9E53FA;
-    white-space: nowrap;
-    
-    
-}
-
-.bloc-validation{
-    height: 52px;
-    overflow: hidden;
-    border-radius: 2rem;
-    
-}
-
-.btn-anim{
-    color: #fff;
-    background-color: #8fd8c6;
-    padding: 14px 12px;
-    font-size: 1rem;
-    font-weight: 800;
-    text-align: center;
-    transform: translateY(0);
-    transition: transform 200ms ease-in-out;
-    line-height: normal;
-    border: 2px solid #8fd8c6;
-    
-
-}
-
-.btn-anim a:hover, .btn-anim span:hover {
-    color: #38454c;
-    
-    
-}
-
-.btn-anim a {
-    color: #FFF;
-    
-    
     
 }
 
 
-
-.btn-anim span {
-    padding: 10px;
-    cursor: pointer;
-    margin: 0 0 0 4px;
-    
-}
 
 .voir-produit a:hover, .voir-panier button:hover {
-    background-color: #FFF;
-    color: #9E53FA;
-    
-    
-    
+    background-color: rgb(186, 141, 241);
 }
 
 .prix-produit p{
     font-size: 1.4rem;
     font-weight: 500;
     text-align: center;
+}
+
+#message{
+    display: none;
+}
+
+#message span{
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 0.8rem;
+}
+
+.confirmation{
+    margin: 0 10px;
+    color : #79d736;
+    font-weight: 400;
+    display: inline-block;
+    padding: 10px 17px;
+    border: 1px solid;
+    cursor: pointer;
+    position: relative;
+}
+
+.confirmation a {
+    color: #79d736;
+    text-decoration: underline;
+}
+
+.confirmation a:hover{
+    opacity: 0.8;
 }
     
 /* Sélection de la personnalisation du produit */
@@ -283,6 +262,7 @@ form label:hover{
 }
 
 
+
 form input[type="radio"]:checked + label {
     color: #fff;
     background-color: rgb(119, 115, 115);
@@ -299,10 +279,8 @@ table{
 
 table th, table td{
     border: 1px solid #ddd;
-    padding: 10px 10px;
+    padding: 0 10px;
     text-align: center;
-    line-height: 0;
-    white-space: nowrap;
 }
 
 table th{
@@ -323,163 +301,6 @@ table td {
     font-size: 1.4rem;
     color: #9E53FA;
 }
-
-/* formulaire de contact */
-
-.commande h2{
-    text-align: center;
-}
-
-.commande{
-    padding: 2rem 3rem;
-    display: none;
-}
-
-.commande form{
-   padding: 2rem 3rem;
-}
-
-.commande form label{
-
-    border: none;
-    padding: 10px 0;
-    font-size: 1.1rem;
-    font-weight: 500;
-    margin: 0;
-}
-
-.commande form label:hover{
-    color: rgb(119, 115, 115);
-    background-color: #FFF;
-
-}
-
-.commande form input{
-    border: 1px solid #8ab1e1;
-    border-radius: 0.8rem;
-    height: 46px;
-    padding: 0 6px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 1.1rem;
-    color: rgb(119, 115, 115);
-    width: 100%;
-
-}
-
-.commande form input:focus{
-    border: 3px dotted #8ab1e1;
-    border-radius: 0.8rem;
-    outline: none;
-}
-
-.identite, .adresse, .contact, .envoyer {
-    display: flex;
-    justify-content: center;
-    
-}
-
-.envoyer{
-    margin: 1.5rem 0;
-}
-
-
-.identite div, .adresse div, .contact div{
-    margin: 0 0.5rem 0 1rem;
-    flex: 1;
-    
-    
-}
-
-.button_form {
-    border-radius: 1rem;
-    width: auto;
-    border: 2px solid #8ab1e1;
-    color: #fff;
-    background-color: #8ab1e1;
-    font-size: 1.2rem;
-    padding: 14px 18px;
-}
-
-.button_form:focus{
-    border: 3px dotted #3d4e64;
-    outline: none;
-}
-
-.button_form:hover{
-    color: #8ab1e1; 
-    background-color: #FFF;
-}
-
-.commande form input:required:valid{
-    border: 2px solid #8fd8c6;
-}
-
-
-
-
-@media only screen and (max-width: 768px) {
-    body {
-      font-size: 14px;
-    }
-
-    #root_list, .article {
-        flex-direction : column;
-    }
-
-    #root-panier{
-        overflow-x: auto;
-    }
-
-    form label{
-        margin: 0 10px 10px 0;
-    }
-
-    .prix-produit p{
-        font-size: 1.2rem;
-    }
-
-    .button, .btn-anim{
-        padding: 12px 12px;
-    }
-
-    .btn-anim{
-        white-space: nowrap;
-    }
-
-    .bloc-validation{
-        height: 48px;
-    }
-
-    .identite, .adresse, .contact {
-        flex-direction: column;
-        
-    }
-  }
-
-  @media only screen and (max-width: 576px) {
-    .header__cart, .header__logo{
-        padding: 0.5rem;
-    }
-
-    .header__cart img{
-        width: 52px;
-    }
-
-     .article__img{
-         min-height: 200px;
-     }
-
-     #root-produit {
-        padding: 2rem 1rem;
-        
-    }
-
-    .article__content {
-        padding: 1rem;
-    }
-  }
-
-
 
 
 

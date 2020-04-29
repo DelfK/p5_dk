@@ -47,7 +47,14 @@ fetch('http://localhost:3000/api/cameras')
             table[0].appendChild(rangeeTotal);
             rangeeTotal.innerHTML =`<td class="hidden"></td><td class="hidden"></td><td class="panierPrix">Total</td><td class="panierPrix">${sumTotal}€</td>`;
    
-})
+            document.querySelector('.commande').style.display = "block";
+            
+            
+                
+                
+
+        })
+            
 .catch( error => {
     console.log(error);
   });
@@ -113,7 +120,7 @@ const rankMaker = (imgSrc, nomPdt, qtPdt, price, array) => {
     array.push(prixPdts);
     
     // on affiche le sous-total dans la cellule
-    tdTotal.innerHTML = prixPdts;
+    tdTotal.innerHTML = prixPdts + ' €';
 }
 
 
