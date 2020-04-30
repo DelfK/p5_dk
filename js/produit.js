@@ -68,7 +68,7 @@ lienPanier.appendChild(blocValidation);
     blocValidation.appendChild(animBtn);
     animBtn.setAttribute('class','btn-anim');
 
-    animBtn.innerHTML = "Voir le <a href='panier.html'>panier</a><span id='fermer'>x</span>";
+    animBtn.innerHTML = "Ajouté au <a href='panier.html'>panier</a><span id='fermer'>x</span>";
 
     const fermer = document.getElementById('fermer');
     fermer.addEventListener('click', function(){

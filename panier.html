@@ -15,11 +15,10 @@
         </div>
         <div class="header__cart">
             <a href="panier.html"><img src="cart.png" alt="lien vers le panier"></a>
-            <span id="cartTotal"></span>
         </div>
     </header>
     <main class="container">
-        <div>
+        <div class="panier">
             <h1>Mon panier</h1>
 
             <div id='root-panier'>
@@ -36,36 +35,37 @@
 
             <div class="commande">
               <h2>Commander</h2>
-              <form>
+              <form name="contactForm" method="POST">
                 <div class="identite">
                   <div>
                     <label for="prenom" class="label-contact">Prénom*</label><br>
-                    <input type="text" id="prenom" required maxlength="38" minlength="2">
+                    <input type="text" id="prenom" required maxlength="38" minlength="2" value="" >
+                    
                   </div>
                   <div>
                     <label for="nom" class="label-contact">Nom*</label><br>
-                    <input type="text" id="nom" required maxlength="38" minlength="2">
+                    <input type="text" id="nom" required maxlength="38" minlength="2" value="">
                   </div>
                 </div>
                 <div class="adresse">
                     <div>
                       <label for="adresse" class="label-contact">N° et nom de rue*</label><br>
-                      <input type="text" id="adresse" required maxlength="38" minlength="4">
+                      <input type="text" id="adresse" required maxlength="38" minlength="4" value="">
                     </div>
                     <div>
-                      <label for="ville" class="label-contact">Complément d'adresse</label><br>
-                      <input type="text" id="ville" maxlength="38" minlength="2">
+                      <label for="complement" class="label-contact">Complément d'adresse</label><br>
+                      <input type="text" id="complement" maxlength="38" minlength="2">
                     </div>
                     
                 </div>
                 <div class="contact">
                   <div>
                     <label for="ville" class="label-contact">Ville*</label><br>
-                    <input type="text" id="ville" required maxlength="28" minlength="2">
+                    <input type="text" id="ville" required maxlength="28" minlength="2" value="">
                   </div>
                   <div>
                     <label for="email" class="label-contact">Email*</label></br>
-                    <input type="email" id="email" required maxlength="48" minlength="4" min="4" max="48">
+                    <input  type="email" id="email" required maxlength="48" minlength="4" min="4" max="48" value="">
                   </div>
                 </div>
                 <div class="envoyer">

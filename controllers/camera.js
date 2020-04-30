@@ -53,7 +53,9 @@ exports.orderCameras = (req, res, next) => {
       !req.body.contact.address ||
       !req.body.contact.city ||
       !req.body.contact.email ||
-      !req.body.products) {
+      !req.body.products
+      
+      ){
     return res.status(400).send(new Error('Bad request!'));
   }
   let queries = [];
@@ -81,7 +83,9 @@ exports.orderCameras = (req, res, next) => {
       return res.status(201).json({
         contact: req.body.contact,
         products: cameras,
-        orderId: orderId
+        orderId: orderId,
+        total: req.body.price
+        
       })
     }
   ).catch(

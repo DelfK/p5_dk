@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta description="vente d'appareils photos vintages">
     <title>Orinoco - confirmation</title>
-    <link href="style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
   </head>
   <body>   
@@ -15,13 +15,20 @@
         </div>
         <div class="header__cart">
             <a href="panier.html"><img src="cart.png" alt="lien vers le panier"></a>
-            <span id="cartTotal">0</span>
+            
         </div>
     </header>
     <main class="container">
         <div class='small_container'>
             <h1>Confirmation de commande</h1>
-            <div>
+            <div class="messageConfirmation">
+              <h2>Merci <span id="renderFirstName"></span></h2>
+              <p>Votre commande N° <span id="renderIdOrder"></span> a bien été prise en compte</p>
+              <p>Son montant total est de <span id="renderTotalOrder"></span></p>
+              <h3>Récapitulatif de la commande</h3>
+              <ul id="renderPdtCommandes">
+
+              </ul>
               
 
             </div>
@@ -32,6 +39,6 @@
       <p> ©Orinoco</p>
     </footer>
     
-    <script src="scripts.js"></script>
+    <script src="js/message.js"></script>
   </body>
 </html>
