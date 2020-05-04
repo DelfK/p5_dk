@@ -1,18 +1,15 @@
-const root = document.getElementById('root-panier');
-
-
 // on récupère les éléments du localStorage
 const items = JSON.parse(localStorage.getItem('items'));
 
 // on ajoute au tableau le message indiquant que le panier est vide
 // ce message sera masqué si un article est ajouté au panier
+const root = document.getElementById('root-panier');
 const table = document.getElementsByTagName('table');
 
 const message = document.createElement('p');
 message.setAttribute('class','panierVide')
 root.appendChild(message);
 message.innerHTML = "Il n'y a rien ici pour l'instant ... Poursuivre mes <a href='index.html'>achats</a>"; 
-
 
 // REQUÊTE vers l'API cameras avec fetch
 fetch('http://localhost:3000/api/cameras')
@@ -21,18 +18,36 @@ fetch('http://localhost:3000/api/cameras')
    
         // on parse les données de la requête en utilisant json()
         return response.json();
-    
-    
-    
+      
   })
   // on utilise les données pour les afficher
   .then(data => {
-        
+        // on crée le heading du tableau
+            const headingTable = document.createElement('tr');
+            table[0].appendChild(headingTable);
+
+            const imgHeading = document.createElement('th');
+            headingTable.appendChild(imgHeading);
+
+            const pdtHeading = document.createElement('th');
+            pdtHeading.innerHTML = "Produit";
+            headingTable.appendChild(pdtHeading);
+
+            const qtHeading = document.createElement('th');
+            qtHeading.innerHTML = "Quantité";
+            headingTable.appendChild(qtHeading);
+
+            const totalHeading = document.createElement('th');
+            totalHeading.innerHTML = "Sous-total";
+            headingTable.appendChild(totalHeading);
+
+
         //on récupère les informations de la camera dont l'id est le même que celui en paramètre de l'url
 
             // on initialise un tableau, pour incrémenter le total du panier
             let arrayTotal = [];
             let arrayProducts = [];
+        
             // pour chaque id de camera stocké sur le localStorage, on vérifie s'il a le même que chaque camera de l'api
             for (let property in items) {
                 
@@ -47,6 +62,7 @@ fetch('http://localhost:3000/api/cameras')
                         message.style.display = "none";
                         rankMaker(imageSrc, cameraName, quantite, cameraPrice, arrayTotal);
                         arrayProducts.push(property);
+                        
 
                       
                     }
@@ -60,7 +76,7 @@ fetch('http://localhost:3000/api/cameras')
             let sumTotal = arrayTotal.reduce(sum);
             //console.log(sumTotal);
 
-            console.log(arrayProducts);
+            
 
             // on affiche le prix dans une nouvelle rangée qu'on ajoute au tableau 
             const rangeeTotal = document.createElement('tr');
@@ -79,50 +95,17 @@ fetch('http://localhost:3000/api/cameras')
                     sendDataForm(arrayProducts, sumTotal);
                     localStorage.clear();
                     
-                    }
-                    
-
+                    }       
             );
-
-            
-            
-            
-            
-
-        })
-            
-.catch( error => {
+        })          
+    .catch( error => {
     console.log(error);
-  });
-  // Fin de la requête
-
-
-
-
+    });
+    // Fin de la requête
 
 // on déclare la fonction qui va permettre de créer et afficher les informations du panier
 const rankMaker = (imgSrc, nomPdt, qtPdt, price, array) => {
-    // on créer le heading du tableau
-    const headingTable = document.createElement('tr');
-    table[0].appendChild(headingTable);
-
-    const imgHeading = document.createElement('th');
-    headingTable.appendChild(imgHeading);
-
-    const pdtHeading = document.createElement('th');
-    pdtHeading.innerHTML = "Produit";
-    headingTable.appendChild(pdtHeading);
-
-    const qtHeading = document.createElement('th');
-    qtHeading.innerHTML = "Quantité";
-    headingTable.appendChild(qtHeading);
-
-    const totalHeading = document.createElement('th');
-    totalHeading.innerHTML = "Sous-total";
-    headingTable.appendChild(totalHeading);
-
-
-
+    
     // on crée la rangée qui va afficher l'image, le nom, la quantité et le sous-total
     const rangee = document.createElement('tr');
     table[0].appendChild(rangee);
@@ -161,6 +144,7 @@ const rankMaker = (imgSrc, nomPdt, qtPdt, price, array) => {
     // on affiche le sous-total dans la cellule
     tdTotal.innerHTML = prixPdts + ' €';
 }
+
 
 
 // ENVOI DU FORMULAIRE
@@ -208,6 +192,8 @@ const sendDataForm = (produits, total) => {
         return response.json();
     })
     .then(jsonResponse => {
+        // on exécute la fonction qui restitue les l'id de commande et les autres données
+        // déclarée plus bas
         renderResponse(jsonResponse)
     })
     .catch( error => {
@@ -217,6 +203,8 @@ const sendDataForm = (produits, total) => {
 };
 
 
+// on récupère les données de la réponse pour les placer en paramètre de l'url
+// pour les afficher sur la page de confirmation
 const renderResponse = order => {
    const firstName = order.contact.firstName;
    const price = order.total;
@@ -224,7 +212,5 @@ const renderResponse = order => {
 
    const urlParams = `confirmation.html?id=${idProduits}&name=${firstName}&price=${price}`;
    window.open(urlParams, "_self");
-   
-   
-
 }
+

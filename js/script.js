@@ -9,8 +9,8 @@ fetch('http://localhost:3000/api/cameras')
   // on utilise les données pour les afficher
   .then(data => {
     data.forEach( camera => {
-
-      // appeler la fonction qui permet de créer un card et définie plus bas
+      // pour chaque appareil récupéré sur l'API
+      // appeler la fonction qui permet de créer un card et qui est définie plus bas
        renderCard(camera);
 
     })
@@ -21,11 +21,12 @@ fetch('http://localhost:3000/api/cameras')
   console.log(error);
 
 });
+// FIN DE LA REQUÊTE
 
 
 
 // La fonction renderCard() crée un card pour chaque appareil
-// chaque card contient une image, le nom de l'appareil, sa description son prix et un lien vers ses détails
+// chaque card contient une image, le nom de l'appareil, sa description, son prix et un lien vers ses détails
 const renderCard = camera => {
     
       // récupérer la div qui va afficher les appareils
@@ -99,7 +100,7 @@ const renderCard = camera => {
       // le prix
       prix.textContent = camera.price/100 + '€';
 
-      // destination du bouton
+      // destination du bouton "Voir les détails"
       //récupérer l'id du produit et le mettre en paramètre dans l'url des destination
       // cela permettra de récupérer les informations liées à l'id pour les afficher sur la page produit
       const idCamera = camera._id;
@@ -107,6 +108,7 @@ const renderCard = camera => {
       btnProduit.href = urlBtn;
 
 };
+// FIN DE LA DECLARATION DE LA FONCTION
 
 
 

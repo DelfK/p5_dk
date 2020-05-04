@@ -63,13 +63,14 @@ lienPanier.appendChild(blocValidation);
     btnPanier.innerHTML = 'Ajouter au panier';
     blocValidation.appendChild(btnPanier);
 
-    // créer le message vert qui appara^tra au clic sur le bouton Ajouter au panier
+    // créer le message vert qui apparaîtra au clic sur le bouton Ajouter au panier
     const animBtn = document.createElement('div');
     blocValidation.appendChild(animBtn);
     animBtn.setAttribute('class','btn-anim');
 
     animBtn.innerHTML = "Ajouté au <a href='panier.html'>panier</a><span id='fermer'>x</span>";
 
+    // masquer le message de validation au clic sur le bouton fermer
     const fermer = document.getElementById('fermer');
     fermer.addEventListener('click', function(){
         animBtn.style.transform = "translateY(0)";
@@ -117,25 +118,28 @@ fetch(`http://localhost:3000/api/cameras/${idProduit}`)
                 itemsCart[idProduit] += 1; 
                 
             }
-            console.log(itemsCart);
+            //console.log(itemsCart);
+            // A chaque ajout dans le panier, on remplit le localStorage
             localStorage.setItem('items', JSON.stringify(itemsCart));
         });
         // fin de l'event sur le bouton
         
             // on affiche les données sur l'appareil en appelant renderDetails définie plus bas
-                renderDetails(data);
+            renderDetails(data);
 
     })
     .catch( error => {
+
     console.log(error);
+
     });
 // FIN DE LA REQUÊTE
     
 
 // FONCTION renderDetails()
 // affiche l'image, le nom de l'appareil , ses options de personnalisation (choix de l'objectif)
-// son prix et un lien pour l'ajouter au panier
-const renderDetails = camera =>{
+// et son prix 
+const renderDetails = camera => {
     const urlImage = camera.imageUrl;
     // mettre l'image en background de la div
     artImage.style.backgroundImage = `url("${urlImage}")`;
@@ -145,7 +149,7 @@ const renderDetails = camera =>{
 
     // ajouter la personnalisation du produit avec des boutons radio
     const objectifs = camera.lenses;
-    console.log(objectifs);
+    //console.log(objectifs);
 
     // pour chaque lense on créer un bouton radio et son label avec tous les attributs nécessaires
     objectifs.forEach(choix => {
