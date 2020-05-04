@@ -11,8 +11,6 @@ message.setAttribute('class','panierVide')
 root.appendChild(message);
 message.innerHTML = "Il n'y a rien ici pour l'instant ... Poursuivre mes <a href='index.html'>achats</a>";
 
-
-
 // REQUÊTE vers l'API cameras avec fetch
 fetch('http://localhost:3000/api/cameras')
   .then(response => {
@@ -24,9 +22,8 @@ fetch('http://localhost:3000/api/cameras')
   })
   // on utilise les données pour les afficher
   .then(data => {
-        if(items){
-            headingMaker();
-        }
+
+       
         //on récupère les informations de la camera dont l'id est le même que celui en paramètre de l'url
 
             // on initialise un tableau, pour incrémenter le total du panier
@@ -149,6 +146,12 @@ const headingMaker = () => {
     totalHeading.innerHTML = "Sous-total";
     headingTable.appendChild(totalHeading);
     
+}
+
+ // on affiche le header du tableau du panier que si le localStorage est plein    
+ if(items){
+    // la fonction crée les titres des colonnes du récapitulatif du panier
+    headingMaker();
 }
 
 

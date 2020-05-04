@@ -204,7 +204,7 @@ button.button{
     font-weight: 800;
     text-align: center;
     transform: translateY(0);
-    transition: transform 200ms ease-in-out;
+    transition: transform 200ms ease;
     line-height: normal;
     border: 2px solid #8fd8c6;
     position: relative;
