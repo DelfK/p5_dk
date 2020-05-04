@@ -6,19 +6,12 @@ const items = JSON.parse(localStorage.getItem('items'));
 
 // on ajoute au tableau le message indiquant que le panier est vide
 // ce message sera masqué si un article est ajouté au panier
-const table = document.getElementsByTagName('tbody');
+const table = document.getElementsByTagName('table');
 
-const rangeeMessage = document.createElement('tr');
-table[0].appendChild(rangeeMessage);
-
-const message = document.createElement('td')
-rangeeMessage.appendChild(message);
-
-
-message.setAttribute('colspan', 4);
-message.style.textAlign = 'center';
-message.style.border = 'none';
-message.innerHTML = "<h2>Il n'y a rien ici pour l'instant ...</h2>"; 
+const message = document.createElement('p');
+message.setAttribute('class','panierVide')
+root.appendChild(message);
+message.innerHTML = "Il n'y a rien ici pour l'instant ... Poursuivre mes <a href='index.html'>achats</a>"; 
 
 
 // REQUÊTE vers l'API cameras avec fetch
@@ -109,6 +102,27 @@ fetch('http://localhost:3000/api/cameras')
 
 // on déclare la fonction qui va permettre de créer et afficher les informations du panier
 const rankMaker = (imgSrc, nomPdt, qtPdt, price, array) => {
+    // on créer le heading du tableau
+    const headingTable = document.createElement('tr');
+    table[0].appendChild(headingTable);
+
+    const imgHeading = document.createElement('th');
+    headingTable.appendChild(imgHeading);
+
+    const pdtHeading = document.createElement('th');
+    pdtHeading.innerHTML = "Produit";
+    headingTable.appendChild(pdtHeading);
+
+    const qtHeading = document.createElement('th');
+    qtHeading.innerHTML = "Quantité";
+    headingTable.appendChild(qtHeading);
+
+    const totalHeading = document.createElement('th');
+    totalHeading.innerHTML = "Sous-total";
+    headingTable.appendChild(totalHeading);
+
+
+
     // on crée la rangée qui va afficher l'image, le nom, la quantité et le sous-total
     const rangee = document.createElement('tr');
     table[0].appendChild(rangee);

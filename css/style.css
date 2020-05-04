@@ -410,6 +410,22 @@ table td {
     border: 2px solid #e37faf;
 }
 
+.panierVide{
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.panierVide a:hover {
+    color: #8ab1e1;
+}
+
+.panierVide a {
+    color: #000;
+    text-decoration: underline;
+}
+
+
+
 
 /*Page de confirmation*/
 .messageConfirmation{
