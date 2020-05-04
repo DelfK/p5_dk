@@ -9,7 +9,9 @@ const table = document.getElementsByTagName('table');
 const message = document.createElement('p');
 message.setAttribute('class','panierVide')
 root.appendChild(message);
-message.innerHTML = "Il n'y a rien ici pour l'instant ... Poursuivre mes <a href='index.html'>achats</a>"; 
+message.innerHTML = "Il n'y a rien ici pour l'instant ... Poursuivre mes <a href='index.html'>achats</a>";
+
+
 
 // REQUÊTE vers l'API cameras avec fetch
 fetch('http://localhost:3000/api/cameras')
@@ -22,26 +24,9 @@ fetch('http://localhost:3000/api/cameras')
   })
   // on utilise les données pour les afficher
   .then(data => {
-        // on crée le heading du tableau
-            const headingTable = document.createElement('tr');
-            table[0].appendChild(headingTable);
-
-            const imgHeading = document.createElement('th');
-            headingTable.appendChild(imgHeading);
-
-            const pdtHeading = document.createElement('th');
-            pdtHeading.innerHTML = "Produit";
-            headingTable.appendChild(pdtHeading);
-
-            const qtHeading = document.createElement('th');
-            qtHeading.innerHTML = "Quantité";
-            headingTable.appendChild(qtHeading);
-
-            const totalHeading = document.createElement('th');
-            totalHeading.innerHTML = "Sous-total";
-            headingTable.appendChild(totalHeading);
-
-
+        if(items){
+            headingMaker();
+        }
         //on récupère les informations de la camera dont l'id est le même que celui en paramètre de l'url
 
             // on initialise un tableau, pour incrémenter le total du panier
@@ -69,14 +54,13 @@ fetch('http://localhost:3000/api/cameras')
                 
                 }
             )};
+            
 
             // on calcule le prix total du panier avec les données du tableau arrayTotal
             //console.log(array);
             let sum = (a, b) => a + b;
             let sumTotal = arrayTotal.reduce(sum);
             //console.log(sumTotal);
-
-            
 
             // on affiche le prix dans une nouvelle rangée qu'on ajoute au tableau 
             const rangeeTotal = document.createElement('tr');
@@ -145,6 +129,27 @@ const rankMaker = (imgSrc, nomPdt, qtPdt, price, array) => {
     tdTotal.innerHTML = prixPdts + ' €';
 }
 
+const headingMaker = () => {
+    // on crée le heading du tableau
+    const headingTable = document.createElement('tr');
+    table[0].appendChild(headingTable);
+
+    const imgHeading = document.createElement('th');
+    headingTable.appendChild(imgHeading);
+
+    const pdtHeading = document.createElement('th');
+    pdtHeading.innerHTML = "Produit";
+    headingTable.appendChild(pdtHeading);
+
+    const qtHeading = document.createElement('th');
+    qtHeading.innerHTML = "Quantité";
+    headingTable.appendChild(qtHeading);
+
+    const totalHeading = document.createElement('th');
+    totalHeading.innerHTML = "Sous-total";
+    headingTable.appendChild(totalHeading);
+    
+}
 
 
 // ENVOI DU FORMULAIRE
