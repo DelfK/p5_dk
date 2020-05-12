@@ -34,12 +34,13 @@ fetch('http://localhost:3000/api/cameras')
             for (let property in items) {
                 
                 data.forEach(camera => {
-                    let imageSrc = camera.imageUrl;
-                    let cameraName = camera.name;
-                    let cameraPrice = camera.price;
+                    
                     //si oui, on masque le message indiquant que le panier est vide
                     // on affiche les infos des cameras ajoutées dans le panier en appelant la fonction rankMaker()
                     if(camera._id === property) {
+                        let imageSrc = camera.imageUrl;
+                        let cameraName = camera.name;
+                        let cameraPrice = camera.price;
                         let quantite = items[property];
                         message.style.display = "none";
                         rankMaker(imageSrc, cameraName, quantite, cameraPrice, arrayTotal);
@@ -216,9 +217,9 @@ const sendDataForm = (produits, total) => {
 const renderResponse = order => {
    const firstName = order.contact.firstName;
    const price = order.total;
-   const idProduits = order.orderId;
+   const idOrder = order.orderId;
 
-   const urlParams = `confirmation.html?id=${idProduits}&name=${firstName}&price=${price}`;
+   const urlParams = `confirmation.html?id=${idOrder}&name=${firstName}&price=${price}`;
    window.open(urlParams, "_self");
 }
 

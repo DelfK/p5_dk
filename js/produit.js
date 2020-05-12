@@ -8,49 +8,30 @@ article.setAttribute('class', 'article');
 
 rootProduit.appendChild(article)
 
-// créer la div article__img 
-const artImage = document.createElement('div');
-artImage.setAttribute('class', 'article__img');
-article.appendChild(artImage);
+// créer les 2 sous-div de article
+article.insertAdjacentHTML('afterbegin', "<div class='article__img'></div>");
+article.insertAdjacentHTML('beforeend', "<div class='article__content'></div>");
+const artImage = document.getElementsByClassName('article__img')[0];
+const artContent = document.getElementsByClassName('article__content')[0];
 
-// créer la div article__content 
-const artContent = document.createElement('div');
-artContent.setAttribute('class', 'article__content');
-article.appendChild(artContent);
+// créer le contenu de article__content
+artContent.innerHTML = "<h2></h2><h3>Choix de l'objectif</h3><form></form><div class='card__details'></div>";
+const artTitre = document.getElementsByTagName('h2')[0];
+const selectObj = document.getElementsByTagName('form')[0];
+const details = document.getElementsByClassName('card__details')[0];
 
-// créer le titre de article__content
-const artTitre = document.createElement('h2');
-artContent.appendChild(artTitre);
-
-// créer le sous-titre de article__content
-const artPerso = document.createElement('h3');
-artContent.appendChild(artPerso);
-artPerso.textContent = "Choix de l'objectif";
-
-// créer le form contenant le choix des d'objectifs
-const selectObj = document.createElement('form');
-artContent.appendChild(selectObj);
-
-// créer la div card__details contenant le bouton et le prix
-const details = document.createElement('div');
-details.setAttribute('class','card__details');
-artContent.appendChild(details);
-
-// créer les 2 sous-div de card__details
+// créer les 2 enfants de card__details : bouton Ajouter au panier et le prix
 // 1 > voir-panier
-const lienPanier = document.createElement('div');
-lienPanier.setAttribute('class','voir-panier');
-details.appendChild(lienPanier);
-
+details.insertAdjacentHTML('afterbegin', "<div class='voir-panier'></div>");
 // 2 > prix-produit
-const prixProduit = document.createElement('div');
-prixProduit.setAttribute('class','prix-produit');
-details.appendChild(prixProduit);
+details.insertAdjacentHTML('beforeend', "<div class='prix-produit'></div>");
 
-    // créer le contenant du prix et le rattacher
-    const prix = document.createElement('p');
-    prixProduit.appendChild(prix);
+const lienPanier = document.getElementsByClassName('voir-panier')[0];
+const prixProduit = document.getElementsByClassName('prix-produit')[0];
 
+// créer le paragraphe pour afficher le prix et le rattacher
+const prix = document.createElement('p');
+prixProduit.appendChild(prix);
 
 // créer le sous-bloc contenu dans voir-panier 
 const blocValidation = document.createElement('div');
@@ -93,6 +74,8 @@ fetch(`http://localhost:3000/api/cameras/${idProduit}`)
   })
   // on utilise les données pour les afficher
   .then(data => {
+        // on affiche les données sur l'appareil en appelant renderDetails définie plus bas
+        renderDetails(data);
  
         // MISE EN PLACE DU LOCALSTORAGE
         // on remplit le local storage avec un objet itemsCart qu'on initialise
@@ -124,8 +107,7 @@ fetch(`http://localhost:3000/api/cameras/${idProduit}`)
         });
         // fin de l'event sur le bouton
         
-            // on affiche les données sur l'appareil en appelant renderDetails définie plus bas
-            renderDetails(data);
+            
 
     })
     .catch( error => {

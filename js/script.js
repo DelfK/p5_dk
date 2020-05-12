@@ -12,6 +12,7 @@ fetch('http://localhost:3000/api/cameras')
       // pour chaque appareil récupéré sur l'API
       // appeler la fonction qui permet de créer un card et qui est définie plus bas
        renderCard(camera);
+       
 
     })
   }
@@ -28,12 +29,14 @@ fetch('http://localhost:3000/api/cameras')
 // La fonction renderCard() crée un card pour chaque appareil
 // chaque card contient une image, le nom de l'appareil, sa description, son prix et un lien vers ses détails
 const renderCard = camera => {
+      
     
       // récupérer la div qui va afficher les appareils
       const root = document.getElementById('root_list');
 
       // créer la div card et lui attribuer une class card
       const card = document.createElement('div');
+      
 
       card.setAttribute('class', 'card');
       root.appendChild(card);
@@ -109,6 +112,8 @@ const renderCard = camera => {
 
 };
 // FIN DE LA DECLARATION DE LA FONCTION
+
+
 
 
 
